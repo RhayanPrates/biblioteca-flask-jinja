@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Minha Biblioteca</title>
+</head>
+<body>
+    <h1>Gerenciador da Biblioteca</h1>
+
+    <h2>Cadastrar Novo Livro</h2>
+    <form action="/biblioteca" method="POST">
+        <input type="hidden" name="acao" value="cadastrar">
+        <label>ISBN: <input type="text" name="isbn" required></label><br>
+        <label>Título: <input type="text" name="titulo" required></label><br>
+        <label>Autor: <input type="text" name="autor" required></label><br>
+        <button type="submit">Salvar Livro</button>
+    </form>
+
+    <hr>
+
+    <h2>Livros Cadastrados</h2>
+    <ul>
+        {% for livro in biblioteca %}
+            <li>
+                <strong>{{ livro.titulo }}</strong> - {{ livro.autor }} (ISBN: {{ livro.isbn }})
+                <form action="/biblioteca" method="POST" style="display:inline;">
+                    <input type="hidden" name="acao" value="deletar">
+                    <input type="hidden" name="isbn" value="{{ livro.isbn }}">
+                    <button type="submit">Deletar</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
